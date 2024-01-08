@@ -36,10 +36,10 @@ if __name__ == "__main__":
         [0, 1, 0, 1, 1, 0, 1],
         display_labels=["negative", "positive"],
         feature_rows=np.array(["This movie sucked!", "It was not very good",
-                      "I want my money back", "I was on the edge of my seat!",
-                      "The twist at the end was mind-blowing",
-                      "Well worth the price of admission",
-                      "A thrilling comedy for the whole family"])
+                               "I want my money back", "I was on the edge of my seat!",
+                               "The twist at the end was mind-blowing",
+                               "Well worth the price of admission",
+                               "A thrilling comedy for the whole family"])
     )
     plt.show()
 
