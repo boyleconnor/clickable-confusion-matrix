@@ -1,13 +1,18 @@
 import math
 from collections import defaultdict
+from typing import Optional, Sequence, Any
 
 import numpy as np
+import pandas
 from sklearn.metrics import ConfusionMatrixDisplay
 
 
 class ClickableConfusionMatrix:
-    def __init__(self, y_true, y_pred, feature_rows, *args, **kwargs):
-        self.feature_rows = np.array(feature_rows)
+    def __init__(self, y_true, y_pred, feature_data: Optional[pandas.DataFrame] = None, feature_headers: Sequence[str] = None, feature_rows: Optional[Sequence[Any]] = None, *args, **kwargs):
+        if feature_data is not None:
+            self.feature_data = feature_data
+        else:
+            self.feature_data = pandas.DataFrame.from_records(feature_rows, columns=feature_headers)
         self.indices_by_combo = defaultdict(list)
         for i, (true, pred) in enumerate(zip(y_true, y_pred)):
             self.indices_by_combo[(true, pred)].append(i)
@@ -21,7 +26,7 @@ class ClickableConfusionMatrix:
                 true_label = self.confusion_matrix_display.display_labels[y]
                 pred_label = self.confusion_matrix_display.display_labels[x]
                 print(f"\n{true_label=} {pred_label=}")
-                print(self.feature_rows[self.indices_by_combo[(y, x)]])
+                print(self.feature_data.iloc[self.indices_by_combo[(y, x)]])
 
         self.confusion_matrix_display = ConfusionMatrixDisplay.from_predictions(y_true, y_pred, *args, **kwargs)
         self.confusion_matrix_display.ax_.figure.canvas.mpl_connect('button_press_event', lambda event: on_click(self.confusion_matrix_display.ax_, event))
