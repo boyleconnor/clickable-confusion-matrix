@@ -38,12 +38,13 @@ if __name__ == "__main__":
     ClickableConfusionMatrix(
         [0, 0, 0, 1, 1, 1, 1],
         [0, 1, 0, 1, 1, 0, 1],
-        display_labels=["negative", "positive"],
-        feature_rows=np.array(["This movie sucked!", "It was not very good",
+        labels=list(range(3)),
+        display_labels=["negative", "positive", "neutral"],
+        feature_rows=np.array([[message] for message in ["This movie sucked!", "It was not very good",
                                "I want my money back", "I was on the edge of my seat!",
                                "The twist at the end was mind-blowing",
                                "Well worth the price of admission",
-                               "A thrilling comedy for the whole family"])
+                               "A thrilling comedy for the whole family"]])
     )
     plt.show()
 
