@@ -7,11 +7,10 @@ from sklearn.metrics import ConfusionMatrixDisplay
 
 class ClickableConfusionMatrix:
     def __init__(self, y_true, y_pred, feature_rows, *args, **kwargs):
-        self.feature_rows = feature_rows
+        self.feature_rows = np.array(feature_rows)
         self.indices_by_combo = defaultdict(list)
         for i, (true, pred) in enumerate(zip(y_true, y_pred)):
             self.indices_by_combo[(true, pred)].append(i)
-        self.indices_by_combo = dict(self.indices_by_combo)
         for combo, indices in self.indices_by_combo.items():
             self.indices_by_combo[combo] = np.array(indices)
 
